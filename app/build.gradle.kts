@@ -79,4 +79,5 @@ dependencies {
     // Transitions
     implementation(libs.voyager.transitions)
 
+    implementation(libs.koin.android)
 }
