@@ -1,47 +1,46 @@
 package com.lakadgroup.lakad.presentation.navigation
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination.Companion.hasRoute
-import androidx.navigation.compose.currentBackStackEntryAsState
+import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
+import cafe.adriel.voyager.navigator.tab.Tab
+import com.lakadgroup.lakad.presentation.tab.ExploreTab
+import com.lakadgroup.lakad.presentation.tab.ItinerariesTab
+import com.lakadgroup.lakad.presentation.tab.MoreTab
+
 
 @Composable
-fun BottomNavigationBar(
-    tabNavController: NavController,
-) {
-    val currentEntry by tabNavController.currentBackStackEntryAsState()
-    val items = listOf(
-        NavRoutes.Tabs.Explore,
-        NavRoutes.Tabs.Itineraries,
-        NavRoutes.Tabs.More,
-    )
-    currentEntry?.let { currentEntry ->
-        NavigationBar {
-            items.forEachIndexed { index,route ->
-                val isActive = currentEntry.destination.hasRoute(route::class)
-                NavigationBarItem(
-                    icon = { Icon(route.iconVector, contentDescription = "Button for ${route.label}") },
-                    label = { Text(route.label) },
-                    selected = isActive,
-                    onClick = {
-                        if(!isActive) {
-                            tabNavController.navigate(route) {
-                                launchSingleTop = true
-                                popUpTo<NavRoutes.Tabs.Explore> {
-                                    saveState = true
-                                }
-                                restoreState = true
-                            }
-                        }
-                    }
+fun BottomNavigationBar() {
+    NavigationBar{
+        TabItem(ExploreTab)
+        TabItem(ItinerariesTab)
+        TabItem(MoreTab)
+    }
+}
+
+@Composable
+fun RowScope.TabItem(tab: Tab) {
+    val navigator = LocalTabNavigator.current
+
+    NavigationBarItem(
+        selected = navigator.current == tab,
+        onClick = { navigator.current = tab },
+        label = {
+            Text(
+                text = tab.options.title
+            )
+        },
+        icon = {
+            tab.options.icon?.let {
+                Icon(
+                    painter = it,
+                    contentDescription = tab.options.title,
                 )
             }
         }
-    }
-
+    )
 }

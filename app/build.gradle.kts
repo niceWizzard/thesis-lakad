@@ -60,10 +60,23 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.mapbox.android)
     implementation(libs.mapbox.compose)
+
+    // Multiplatform
+
+    // Navigator
+    implementation(libs.voyager.navigator)
+
+    // Screen Model
+    implementation(libs.voyager.screenmodel)
+
+    // TabNavigator
+    implementation(libs.voyager.tab.navigator)
+
+    // Transitions
+    implementation(libs.voyager.transitions)
 
 }
