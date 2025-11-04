@@ -29,8 +29,13 @@ fun BottomNavigationBar(
                     label = { Text(route.label) },
                     selected = isActive,
                     onClick = {
-                        tabNavController.popBackStack(NavRoutes.Tabs.Explore, index == 0)
-                        tabNavController.navigate(route)
+                        if(!isActive) {
+                            tabNavController.popBackStack(NavRoutes.Tabs.Explore, index == 0)
+                            tabNavController.navigate(route) {
+                                restoreState = true
+                                launchSingleTop = true
+                            }
+                        }
                     }
                 )
             }
