@@ -15,6 +15,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import cafe.adriel.voyager.core.annotation.ExperimentalVoyagerApi
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.NavigatorDisposeBehavior
 import cafe.adriel.voyager.transitions.SlideTransition
@@ -22,7 +23,7 @@ import com.lakadgroup.lakad.presentation.screen.TabScreen
 import com.lakadgroup.lakad.ui.theme.LakadTheme
 
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalVoyagerApi::class)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,10 +45,13 @@ class MainActivity : ComponentActivity() {
                             screen = TabScreen,
                             disposeBehavior = NavigatorDisposeBehavior(
                                 disposeNestedNavigators = false,
-                                disposeSteps = true
+                                disposeSteps = false,
                             )
                         ) { navigator ->
-                            SlideTransition(navigator)
+                            SlideTransition(
+                                navigator = navigator,
+                                disposeScreenAfterTransitionEnd = true,
+                            )
                         }
                     }
                 }
