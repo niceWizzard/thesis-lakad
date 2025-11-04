@@ -15,15 +15,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.lakadgroup.lakad.data.OtherScreenViewModel
 
 class OtherScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
+        val otherScreenViewModel = rememberScreenModel { OtherScreenViewModel() }
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -48,6 +51,7 @@ class OtherScreen : Screen {
         ) {
             Column(modifier = Modifier.padding(it)) {
                 Text("Other Route")
+                Text("Counter: ${otherScreenViewModel.counter.intValue}")
             }
         }
     }
