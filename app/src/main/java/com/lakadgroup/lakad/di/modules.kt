@@ -9,5 +9,7 @@ val appModule = module {
     single {
         TestApi()
     }
-
+    factory {
+        OtherScreenViewModel(get())
+    }
 }
