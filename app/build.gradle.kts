@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
     id("kotlin-parcelize")
+
 }
 
 android {
@@ -61,5 +62,8 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.mapbox.android)
+    implementation(libs.mapbox.compose)
 
 }

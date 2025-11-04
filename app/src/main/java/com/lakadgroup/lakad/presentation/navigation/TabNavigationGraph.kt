@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.lakadgroup.lakad.presentation.tab.ExploreTab
 
 @Composable
 fun TabNavigationGraph(rootNavController: NavController) {
@@ -21,14 +22,7 @@ fun TabNavigationGraph(rootNavController: NavController) {
             startDestination = NavRoutes.Tabs.Explore,
         ) {
             composable<NavRoutes.Tabs.Explore> {
-                Column {
-                    Text("Explore")
-                    Button(
-                        onClick = {
-                            rootNavController.navigate(NavRoutes.OtherRoute)
-                        }
-                    ) { Text("Other Screen")}
-                }
+                ExploreTab()
             }
             composable<NavRoutes.Tabs.Itineraries> {
                 Text("Itineraries")
